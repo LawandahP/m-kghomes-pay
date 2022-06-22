@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'mpesa',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +123,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MPESA_PASSKEY = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'
+MPESA_ENVIRONMENT = 'sandbox'
+MPESA_SHORTCODE = 174379
+MPESA_EXPRESS_SHORTCODE = 174379
+
+MPESA_CONSUMER_KEY = 'yVS3HM45wEfZYftAsptGOr8wkMCypzbd'
+MPESA_CONSUMER_SECRET = 'cXjtpeJjA7VaPuGp'
