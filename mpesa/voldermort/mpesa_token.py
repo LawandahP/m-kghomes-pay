@@ -20,10 +20,11 @@ def generateAccessToken():
         )
     auth_res = response.json()
     my_access_token = auth_res['access_token']
+    expiry = auth_res['expires_in'] 
 
-    print("access-token-", my_access_token)
+    print({"access-token-": my_access_token, "expiry_date": expiry})
     return my_access_token
-# generateAccessToken()
+generateAccessToken()
 
 
 

@@ -9,6 +9,16 @@ from mpesa.voldermort.core import MpesaClient
 mpesa_client = MpesaClient()
 stk_push_callback_url = 'https://darajambili.herokuapp.com/express-payment'
 
+
+@api_view(['GET'])
+def index(request):
+    urls = {
+        "access-token": "oauth-token/",
+        "lnm-stk-push": "lnm/stk-push/",
+        "c2b": "c2b/"
+    }
+    return Response(urls, 200)
+
 @api_view(['GET'])
 def get_auth_token(request):
     token = mpesa_client.access_token()
@@ -16,18 +26,28 @@ def get_auth_token(request):
     return Response(access_token, status=status.HTTP_200_OK)
 
 
-# {
-#     "phone_number": 254740129131,
-#     "amount": 1,
-#     "account_reference": "GITHAIGA",
-#     "transaction_desc": "Payment for Rent",
-# }
+
 
 
 @api_view(['POST'])
 def lipaNaMpesaOnlineStkPush(request):
+    """
+    
+    {
+        "transaction_type": "CustomerPayBillOnline",
+        "business_short_code": 174379,
+        "phone_number": "0740129131",
+        "amount": 1,
+        "account_reference": "GITHAIGA",
+        "transaction_desc": "Payment for Rent"
+    }
+    
+    """
     data = request.data
+
     r = mpesa_client.stk_push(
+        transaction_type=data["transaction_type"],
+        business_short_code=data["business_short_code"],
         phone_number=data["phone_number"],
         amount=data["amount"],
         account_reference=data["account_reference"],
@@ -36,11 +56,30 @@ def lipaNaMpesaOnlineStkPush(request):
     )
     return Response(r, status=status.HTTP_200_OK)
     
+@api_view(['POST'])
+def c2bPayment(request):
 
+    """
+        {
+            "business_short_code": 174379,
+            "phone_number": "0740129131",
+            "amount": 1,
+            "account_number": "0740129131",
+            "transaction_type": "CustomerPayBillOnline"
+        }
+    """
 
+    data = request.data
+    r = mpesa_client.c2b(
 
+        business_short_code=data["business_short_code"],
+        phone_number=data["phone_number"],
+        amount=data["amount"],
+        account_number=data["account_number"],
+        transaction_type=data["transaction_type"],
+    )
 
-
+    return Response(r, 200)
 
 
 
