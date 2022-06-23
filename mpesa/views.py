@@ -16,6 +16,14 @@ def get_auth_token(request):
     return Response(access_token, status=status.HTTP_200_OK)
 
 
+# {
+#     "phone_number": 254740129131,
+#     "amount": 1,
+#     "account_reference": "GITHAIGA",
+#     "transaction_desc": "Payment for Rent",
+# }
+
+
 @api_view(['POST'])
 def lipaNaMpesaOnlineStkPush(request):
     data = request.data
