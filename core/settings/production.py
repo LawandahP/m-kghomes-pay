@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-import django_heroku
+# import django_heroku
 from pathlib import Path
 import os
 
@@ -139,6 +139,6 @@ MPESA_EXPRESS_SHORTCODE = 174379
 
 MPESA_CONSUMER_KEY = 'yVS3HM45wEfZYftAsptGOr8wkMCypzbd'
 MPESA_CONSUMER_SECRET = 'cXjtpeJjA7VaPuGp'
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
