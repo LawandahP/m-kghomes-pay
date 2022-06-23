@@ -1,1 +1,1 @@
-web: gunicorn m-kghomes-pay.wsgi --log-file -
+web: gunicorn core.wsgi --log-file -

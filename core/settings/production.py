@@ -9,24 +9,26 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-import django_on_heroku
+# import django_heroku
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-# django_on_heroku.settings(locals())
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-h@nsl$38z9xii0v5p81&%n-1*t1k0n4@ivf)5j$&zerri!lwzy'
+# SECRET_KEY = 'django-insecure-h@nsl$38z9xii0v5p81&%n-1*t1k0n4@ivf)5j$&zerri!lwzy'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['m-kghomes-pay.herokuapp.com']
+ALLOWED_HOSTS = ['m-kghomes-pay.herokuapp.com',]
 
 
 # Application definition
@@ -119,7 +121,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-import os
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -137,3 +139,6 @@ MPESA_EXPRESS_SHORTCODE = 174379
 
 MPESA_CONSUMER_KEY = 'yVS3HM45wEfZYftAsptGOr8wkMCypzbd'
 MPESA_CONSUMER_SECRET = 'cXjtpeJjA7VaPuGp'
+
+
+# django_heroku.settings(locals())

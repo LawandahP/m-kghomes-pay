@@ -9,5 +9,5 @@ def updateMpesaAccessToken():
                 
 def start():
     schedule = BackgroundScheduler()
-    schedule.add_job(updateMpesaAccessToken, 'interval', minutes=1)
+    schedule.add_job(updateMpesaAccessToken, 'interval', minutes=3)
     schedule.start()
