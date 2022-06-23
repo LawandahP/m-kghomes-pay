@@ -1,0 +1,1 @@
+web: gunicorn m-pablo-pay.wsgi --log-file -
