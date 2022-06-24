@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-# import django_heroku
+import django_heroku
 from pathlib import Path
 import os
 
@@ -130,9 +130,9 @@ STATIC_URL = 'static/'
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-import dj_database_url 
-prod_db  =  dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(prod_db)
+# import dj_database_url 
+# prod_db  =  dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(prod_db)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -148,4 +148,4 @@ MPESA_CONSUMER_KEY = 'yVS3HM45wEfZYftAsptGOr8wkMCypzbd'
 MPESA_CONSUMER_SECRET = 'cXjtpeJjA7VaPuGp'
 
 
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
