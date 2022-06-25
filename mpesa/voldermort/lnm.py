@@ -24,7 +24,7 @@ def lipaNaMpesaOnline():
         "PartyA": 254740129131,
         "PartyB": paybill_no,
         "PhoneNumber": 254740129131,
-        "CallBackURL": "https://mydomain.com/path",
+        "CallBackURL": "https://m-kghomes-pay.herokuapp.com/api/v1/lnm-callback/",
         "AccountReference": "GITHAIGA",
         "TransactionDesc": "Payment of X" 
     }

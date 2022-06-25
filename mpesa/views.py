@@ -99,6 +99,11 @@ class LipaNaMpesaCallbackUrlAPIView(generics.GenericAPIView):
         print(data)   
         return Response(data)
 
+    def get(self, request):     
+        data = request.data
+        print(data)   
+        return Response(data)
+
 
 
 
