@@ -89,68 +89,15 @@ def c2bPayment(request):
     return Response(r, 200)
 
 
-class LipaNaMpesaCallbackUrlAPIView(generics.CreateAPIView):
+class LipaNaMpesaCallbackUrlAPIView(generics.GenericAPIView):
     queryset = LipaNaMpesaOnline.objects.all()
     serializer_class = LipaNaMpesaOnlineSerializer
     permission_classes = [AllowAny, ]
 
-    def create(self, request):        
-        """
-        {'Body': 
-            {'stkCallback': 
-                {
-                    'MerchantRequestID': '82441-85031621-1', 
-                    'CheckoutRequestID': 'ws_CO_010920211148228797', 
-                    'ResultCode': 0, 
-                    'ResultDesc': 'The service request is processed successfully.',
-                    'CallbackMetadata': 
-                        {
-                            'Item': [   
-                                {'Name': 'Amount', 'Value': 1.0}, 
-                                {'Name': 'MpesaReceiptNumber', 'Value': 'PI10C6XGTY'}, 
-                                {'Name': 'Balance'}, 
-                                {'Name': 'TransactionDate', 'Value': 20210901114837}, 
-                                {'Name': 'PhoneNumber', 'Value': 254740129131}
-                            ]
-                    }
-                }
-            }
-        }
-        
-        """
-        merchant_request_id = request.data['Body']['stkCallback']['MerchantRequestID']
-        checkout_request_id = request.data['Body']['stkCallback']['CheckoutRequestID']
-        result_code = request.data['Body']['stkCallback']['ResultCode']
-        result_description = request.data['Body']['stkCallback']['ResultDesc']
-
-        amount = request.data['Body']['stkCallback']['CallbackMetadata']['Item'][0]['Value']
-        mpesa_receipt_number = request.data['Body']['stkCallback']['CallbackMetadata']['Item'][1]['Value']
-
-        transaction_date = request.data['Body']['stkCallback']['CallbackMetadata']['Item'][3]['Value']
-        phone_number = request.data['Body']['stkCallback']['CallbackMetadata']['Item'][4]['Value']
-
-        # convert timestamp to date
-        
-
-        transaction_date_str = str(transaction_date)
-        transaction_datetime = datetime.strptime(transaction_date_str, "%Y%m%d%H%M%S")
-
-        timezone_aware_datetime = pytz.utc.localize(transaction_datetime)
-        
-        lipa_na_mpesa_online = LipaNaMpesaOnline.objects.create(
-            MerchantRequestID = merchant_request_id,
-            CheckoutRequestID = checkout_request_id,
-            ResultCode = result_code,
-            ResultDesc = result_description,
-            Amount = amount,
-            MpesaReceiptNumber = mpesa_receipt_number,
-            TransactionDate = timezone_aware_datetime,
-            PhoneNumber = phone_number
-        )
-        lipa_na_mpesa_online.save()
-
-        serializer = LipaNaMpesaOnlineSerializer(lipa_na_mpesa_online, many=False)
-        return Response(serializer.data)
+    def post(self, request):     
+        data = request.data
+        print(data)   
+        return Response(data)
 
 
 
@@ -184,3 +131,62 @@ class LipaNaMpesaCallbackUrlAPIView(generics.CreateAPIView):
             
 #         error = {'detail': serializer.errors}
 #         return Response(error, status.HTTP_400_BAD_REQUEST)
+
+
+
+
+"""
+        # {'Body': 
+        #     {'stkCallback': 
+        #         {
+        #             'MerchantRequestID': '82441-85031621-1', 
+        #             'CheckoutRequestID': 'ws_CO_010920211148228797', 
+        #             'ResultCode': 0, 
+        #             'ResultDesc': 'The service request is processed successfully.',
+        #             'CallbackMetadata': 
+        #                 {
+        #                     'Item': [   
+        #                         {'Name': 'Amount', 'Value': 1.0}, 
+        #                         {'Name': 'MpesaReceiptNumber', 'Value': 'PI10C6XGTY'}, 
+        #                         {'Name': 'Balance'}, 
+        #                         {'Name': 'TransactionDate', 'Value': 20210901114837}, 
+        #                         {'Name': 'PhoneNumber', 'Value': 254740129131}
+        #                     ]
+        #             }
+        #         }
+        #     }
+        # }
+        
+        # """
+        # merchant_request_id = request.data['Body']['stkCallback']['MerchantRequestID']
+        # checkout_request_id = request.data['Body']['stkCallback']['CheckoutRequestID']
+        # result_code = request.data['Body']['stkCallback']['ResultCode']
+        # result_description = request.data['Body']['stkCallback']['ResultDesc']
+
+        # amount = request.data['Body']['stkCallback']['CallbackMetadata']['Item'][0]['Value']
+        # mpesa_receipt_number = request.data['Body']['stkCallback']['CallbackMetadata']['Item'][1]['Value']
+
+        # transaction_date = request.data['Body']['stkCallback']['CallbackMetadata']['Item'][3]['Value']
+        # phone_number = request.data['Body']['stkCallback']['CallbackMetadata']['Item'][4]['Value']
+
+        # # convert timestamp to date
+        
+
+        # transaction_date_str = str(transaction_date)
+        # transaction_datetime = datetime.strptime(transaction_date_str, "%Y%m%d%H%M%S")
+
+        # timezone_aware_datetime = pytz.utc.localize(transaction_datetime)
+        
+        # lipa_na_mpesa_online = LipaNaMpesaOnline.objects.create(
+        #     MerchantRequestID = merchant_request_id,
+        #     CheckoutRequestID = checkout_request_id,
+        #     ResultCode = result_code,
+        #     ResultDesc = result_description,
+        #     Amount = amount,
+        #     MpesaReceiptNumber = mpesa_receipt_number,
+        #     TransactionDate = timezone_aware_datetime,
+        #     PhoneNumber = phone_number
+        # )
+        # lipa_na_mpesa_online.save()
+
+        # serializer = LipaNaMpesaOnlineSerializer(lipa_na_mpesa_online, many=False)
