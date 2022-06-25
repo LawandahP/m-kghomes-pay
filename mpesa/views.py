@@ -92,8 +92,8 @@ def c2bPayment(request):
 class LipaNaMpesaCallbackUrlAPIView(generics.CreateAPIView):
     queryset = LipaNaMpesaOnline.objects.all()
     serializer_class = LipaNaMpesaOnlineSerializer
-    permission_class = AllowAny
-    
+    permission_class = [AllowAny]
+
     def create(self, request):        
         """
         {'Body': 
