@@ -4,6 +4,8 @@ import pytz
 from rest_framework.response import Response
 from rest_framework import status, generics
 from rest_framework.decorators import api_view
+from rest_framework.permissions import AllowAny
+
 from mpesa.models import LipaNaMpesaOnline
 from mpesa.serializers import LipaNaMpesaOnlineSerializer
 
@@ -90,7 +92,8 @@ def c2bPayment(request):
 class LipaNaMpesaCallbackUrlAPIView(generics.CreateAPIView):
     queryset = LipaNaMpesaOnline.objects.all()
     serializer_class = LipaNaMpesaOnlineSerializer
-
+    permission_class = AllowAny
+    
     def create(self, request):        
         """
         {'Body': 
